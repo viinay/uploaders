@@ -50,5 +50,18 @@ export class CsvuploaderComponent implements OnInit {
     }
   }
 
+  onReset(elem):void{
+    console.dir(elem)
+    elem.value = '';
+  }
+
+  onDownload(event){
+    const fileName = 'test';
+    const csvStr = 
+    `name,place,animal
+    superman,krypton,fox
+    `;
+    utils.csvUtils.download(csvStr,fileName)    
+  }
 }
 

@@ -1,4 +1,6 @@
 <div>
     <h6>CSV Uploader</h6>
-    <input type="file" accept=".csv" name="csvFile" id="csvFile" [value]="csvFileName" (change)="uploadCSV($event)" />
+    <input #csvFile type="file" accept=".csv" name="csvFile" id="csvFile" [value]="csvFileName || ''" (change)="uploadCSV($event)" />
+    <button (click)="onReset(csvFile)">reset</button>
+    <button (click)="onDownload($event)">download</button>
 </div>

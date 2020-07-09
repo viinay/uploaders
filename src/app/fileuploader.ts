@@ -25,6 +25,22 @@ const csvUtils = {
         const rows:string[] = (<string>csvStr).split(/\r\n|\n/);
         const headers:string[] = (rows[0]).split(',');
         return {rows,headers};
+    },
+    download:function(csvStr:string,fileName:string):void{
+        const csvBlob = new Blob(['\ufeff' + csvStr], { type: 'text/csv;charset=utf-8;' });
+        const url = URL.createObjectURL(csvBlob);
+
+        const dwldLink = document.createElement('a');
+        const isSafariBrowser = navigator.userAgent.indexOf('Safari') != -1 && navigator.userAgent.indexOf('Chrome') == -1;
+        if (isSafariBrowser) {  //if Safari open in new window to save file with random filename.
+            dwldLink.setAttribute("target", "_blank");
+        }
+        dwldLink.setAttribute("href", url);
+        dwldLink.setAttribute("download", `${fileName}.csv`);
+        dwldLink.style.visibility = "hidden";
+        document.body.appendChild(dwldLink);
+        dwldLink.click();
+        document.body.removeChild(dwldLink);
     }
 
 }
