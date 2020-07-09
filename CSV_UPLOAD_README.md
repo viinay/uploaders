@@ -119,3 +119,24 @@ batman,gotham,super-rich
 const rows = csvStr.split(\n)
 const headers = rows[0].split(',')
 ```
+
+## download csv
+* to download csv we should have csvStr data.Format of csvStr data is shown above.
+* create csvBlob out of csvStr as follows
+```const csvBlob = new Blob(['\ufeff' + csvStr], { type: 'text/csv;charset=utf-8;' });```
+* which the csvBlob we can create a downloadable link using
+```const url = URL.createObjectURL(csvBlob);```
+* now we have a downloadable link, from here we can create a tag with download attribure set and click it.
+```
+const dwldLink = document.createElement('a');
+const isSafariBrowser = navigator.userAgent.indexOf('Safari') != -1 && navigator.userAgent.indexOf('Chrome') == -1;
+if (isSafariBrowser) {  //if Safari open in new window to save file with random filename.
+    dwldLink.setAttribute("target", "_blank");
+}
+dwldLink.setAttribute("href", url);
+dwldLink.setAttribute("download", `${fileName}.csv`);
+dwldLink.style.visibility = "hidden";
+document.body.appendChild(dwldLink);
+dwldLink.click();
+document.body.removeChild(dwldLink);
+```
