@@ -75,3 +75,47 @@ reader.onload = ()=>{
  console.log(reader.result) // csv as text
 }
 ```
+
+## complete example code for Angular framewore
+```
+//csvuploader.component.html
+<input type="file" accept=".csv" name="csvFile" id="csvFile" [value]="csvFileName" (change)="uploadCSV($event)" />
+```
+```
+//csvuploader.component.ts
+uploadCSV(event){
+    const files:FileList = event.srcElement.files;
+    const file:File = files[0];
+
+    const validCsvFile = utils.csvUtils.isCsvFile(file); //func which checks file.name.endsWith('.csv')
+    if(!validCsvFile){
+      console.log('not a csv file')
+      return;
+    }
+
+    this._uploadService.uploadCSVFile(file,{uploadName:'csv_file',baseUrl:'https://localhost:3000'}) //func which create formData out of file object (check above on how to use formData)
+      .then(response=>{
+        console.log(response)
+      })
+      .catch(error=>{
+        console.log(error)
+      })
+    
+    const reader:FileReader = new FileReader()
+    reader.readAsText(file)
+    reader.onload=()=>{
+      const csvJSON:object[] = utils.csvUtils.toJSON(reader.result as string) //func which parses the csvStr
+      console.log(csvJSON) //use this json to build table
+    }
+  }
+```
+
+```
+const csvStr = 
+`name,place,powers
+superman,krypton,flying
+batman,gotham,super-rich
+`
+const rows = csvStr.split(\n)
+const headers = rows[0].split(',')
+```
