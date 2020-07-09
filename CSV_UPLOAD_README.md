@@ -76,7 +76,7 @@ reader.onload = ()=>{
 }
 ```
 
-## complete example code for Angular framewore
+## complete example code for Angular framework
 ```
 //csvuploader.component.html
 <input type="file" accept=".csv" name="csvFile" id="csvFile" [value]="csvFileName" (change)="uploadCSV($event)" />
