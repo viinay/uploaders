@@ -1,4 +1,4 @@
-## upload file to server
+# upload file to server
 inorder to upload a file to server
 1st get the file object using input element,drag-n-drop element
 2nd create formData using FormData and append key as filename and value as blob (check below on how to create blob from file object)
@@ -11,7 +11,7 @@ inorder to display uploaded csv as table
 3rd parse the text-csv (csvStr) using custom method
 
 ## grab file object from uesr interface
-# using input element
+### using input element
 ```
 <input type="file" accept=".csv" name="csvFile" id="csvFile" onchange="uploadCsv()"/>
 <input type="file" accept=".csv" name="csvFile" id="csvFile" onchange="uploadCsv2(this)"/>
